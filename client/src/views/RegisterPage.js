@@ -4,18 +4,11 @@ export default function RegisterPage() {
   const [password, setPassword] = useState("");
   async function register(ev) {
     ev.preventDefault();
-    try {
-      const response = await fetch("http://localhost:4000/register", {
-        method: "POST",
-        body: JSON.stringify({ username, password }),
-        headers: { "Content-Type": "application/json" },
-      });
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-    } catch (error) {
-      console.error("Error:", error);
-    }
+    await fetch("http://localhost:4000/register", {
+      method: "POST",
+      body: JSON.stringify({ username, password }),
+      headers: { "Content-Type": "application/json" },
+    });
   }
   return (
     <form className="register" onSubmit={register}>
