@@ -6,6 +6,8 @@ const bcrypt = require("bcrypt");
 const app = express();
 const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
+const multer = require("multer");
+const uploadMddleware = multer({ dest: "uploads/" });
 
 const salt = bcrypt.genSaltSync(10);
 const secret = "asdfe45we45w345wegw345werjktjwertkj";
@@ -61,8 +63,13 @@ app.get("/profile", (req, res) => {
   });
 });
 
+//ส่วนของทำการLogout
 app.post("/logout", (req, res) => {
   res.cookie("token", "").json("okay");
+});
+
+app.post("/post", uploadMddleware.single("files"), (req, res) => {
+  res.json(req.files);
 });
 
 app.listen(4000);

@@ -34,17 +34,17 @@ export default function CreatePost() {
   const [title, setTitle] = useState("");
   const [summary, setSummary] = useState("");
   const [content, setContent] = useState("");
-  const [file, setFile] = useState("");
-  function createNewPost(ev) {
+  const [files, setFiles] = useState("");
+  async function createNewPost(ev) {
     const data = new FormData();
     data.set("title", title);
     data.set("summary", summary);
     data.set("content", content);
-    data.set("file", File);
+    data.set("files", files);
     ev.preventDefault();
-    fetch("http://localhost:4000/post", {
+    const response = await fetch("http://localhost:4000/post", {
       method: "POST",
-      //body:,
+      body: data,
     });
   }
   return (
@@ -63,8 +63,8 @@ export default function CreatePost() {
       />
       <input
         type="file"
-        value={file}
-        onChange={(ev) => setFile(ev.target.value)}
+        value={files}
+        onChange={(ev) => setFiles(ev.target.value)}
       />
       <ReactQuill
         value={content}
