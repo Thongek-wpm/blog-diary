@@ -44,7 +44,7 @@ div.posts div.texts h2 {
 div.posts p.info {
   margin: 6px 0;
   color: #888;
-  font-size: 0.10rem;
+  font-size: 0.1rem;
   display: flex;
   gap: 10px;
 }
@@ -80,6 +80,7 @@ button {
   border-radius: 5px;
   padding: 7px 0;
 }
-form h1 {
+form.login h1,
+form.register h1 {
   text-align: center;
 }

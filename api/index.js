@@ -5,16 +5,21 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const app = express();
 const jwt = require("jsonwebtoken");
+const cookieParser = require("cookie-parser");
 
 const salt = bcrypt.genSaltSync(10);
 const secret = "asdfe45we45w345wegw345werjktjwertkj";
 
 app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
 app.use(express.json());
+app.use(cookieParser());
 
+//เชื่อมต่อกับฐานข้อมูลMongoDB
 mongoose.connect(
   "mongodb+srv://BlogDiary:oGhfUYl5GyZeq460@cluster0.rnqxj91.mongodb.net/?retryWrites=true&w=majority"
 );
+
+//ส่วนของการRegister
 app.post("/register", async (req, res) => {
   const { username, password } = req.body;
   try {
@@ -28,7 +33,7 @@ app.post("/register", async (req, res) => {
   }
 });
 
-//Login
+//ส่วนของการLogin
 
 app.post("/login", async (req, res) => {
   const { username, password } = req.body;
@@ -38,11 +43,26 @@ app.post("/login", async (req, res) => {
     //loggin
     jwt.sign({ username, id: userDoc._id }, secret, {}, (err, token) => {
       if (err) throw err;
-      res.cookie("token", token).json("Okay");
+      res.cookie("token", token).json({
+        id: userDoc._id,
+        username,
+      });
     });
   } else {
     res.status(400).json("worng credentials");
   }
+});
+
+app.get("/profile", (req, res) => {
+  const { token } = req.cookies;
+  jwt.verify(token, secret, {}, (err, info) => {
+    if (err) throw err;
+    res.json(info);
+  });
+});
+
+app.post("/logout", (req, res) => {
+  res.cookie("token", "").json("okay");
 });
 
 app.listen(4000);
