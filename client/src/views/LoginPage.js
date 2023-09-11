@@ -9,7 +9,7 @@ export default function LoginPage() {
   const { setUserInfo } = useContext(UserContext);
   async function login(ev) {
     ev.preventDefault();
-    const reponse = await fetch("http://localhost:4000/login", {
+    const reponse = await fetch("http://localhost:8000/login", {
       method: "POST",
       body: JSON.stringify({ username, password }),
       headers: { "Content-Type": "application/json" },

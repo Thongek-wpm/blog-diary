@@ -20,10 +20,9 @@ app.use(cookieParser());
 
 //เชื่อมต่อกับฐานข้อมูลMongoDB
 mongoose.connect(
-  "mongodb+srv://BlogDiary:oGhfUYl5GyZeq460@cluster0.rnqxj91.mongodb.net/?retryWrites=true&w=majority"
+  'mongodb+srv://BlogDiary:oGhfUYl5GyZeq46@cluster0.rnqxj91.mongodb.net/?retryWrites=true&w=majority'
 );
 
-//ส่วนของการRegister
 app.post("/register", async (req, res) => {
   const { username, password } = req.body;
   try {
@@ -33,18 +32,17 @@ app.post("/register", async (req, res) => {
     });
     res.json(userDoc);
   } catch (e) {
+    console.log(e);
     res.status(400).json(e);
   }
 });
-
-//ส่วนของการLogin
 
 app.post("/login", async (req, res) => {
   const { username, password } = req.body;
   const userDoc = await User.findOne({ username });
   const passOk = bcrypt.compareSync(password, userDoc.password);
   if (passOk) {
-    //loggin
+    // logged in
     jwt.sign({ username, id: userDoc._id }, secret, {}, (err, token) => {
       if (err) throw err;
       res.cookie("token", token).json({
@@ -53,7 +51,7 @@ app.post("/login", async (req, res) => {
       });
     });
   } else {
-    res.status(400).json("worng credentials");
+    res.status(400).json("wrong credentials");
   }
 });
 
@@ -65,7 +63,6 @@ app.get("/profile", (req, res) => {
   });
 });
 
-//ส่วนของทำการLogout
 app.post("/logout", (req, res) => {
   res.cookie("token", "").json("ok");
 });
@@ -88,4 +85,6 @@ app.post("/post", uploadMiddleware.single("file"), async (req, res) => {
   res.json(postDoc);
 });
 
-app.listen(4000);
+app.listen(8000);
+
+//oGhfUYl5GyZeq46
