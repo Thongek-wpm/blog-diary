@@ -20,7 +20,7 @@ app.use(cookieParser());
 
 //เชื่อมต่อกับฐานข้อมูลMongoDB
 mongoose.connect(
-  'mongodb+srv://BlogDiary:oGhfUYl5GyZeq46@cluster0.rnqxj91.mongodb.net/?retryWrites=true&w=majority'
+  "mongodb+srv://BlogDiary:UHBhBiO7jcUV74Wl@cluster0.rnqxj91.mongodb.net/"
 );
 
 app.post("/register", async (req, res) => {
