@@ -20,7 +20,7 @@ app.use(cookieParser());
 
 //เชื่อมต่อกับฐานข้อมูลMongoDB
 mongoose.connect(
-  "mongodb+srv://BlogDiary:oGhfUYl5GyZeq46@cluster0.rnqxj91.mongodb.net/?retryWrites=true&w=majority"
+  "mongodb+srv://thongekwpm:aoGoF08HbabSYgRP@blogdiary.nxbcc8m.mongodb.net/?retryWrites=true&w=majority"
 );
 
 app.post("/register", async (req, res) => {
@@ -87,4 +87,4 @@ app.post("/post", uploadMiddleware.single("file"), async (req, res) => {
 
 app.listen(4000);
 
-//oGhfUYl5GyZeq46
+//aoGoF08HbabSYgRP
